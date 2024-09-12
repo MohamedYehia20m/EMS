@@ -2,6 +2,7 @@ package com.EBI.springproject.service;
 
 import com.EBI.springproject.model.EmployeeDto;
 import com.EBI.springproject.Entity.EmployeeEntity;
+import com.EBI.springproject.model.EmployeeSaveDto;
 import com.EBI.springproject.repo.EmployeeRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -39,38 +40,38 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    public EmployeeDto patchUpdateEmployee(EmployeeDto employeeDto, Long id) {
-        EmployeeDto employeeDto1;
-        EmployeeEntity employeeEntity = modelMapper.map(this.getEmployeeById(id), EmployeeEntity.class);
+    public EmployeeSaveDto patchUpdateEmployee(EmployeeSaveDto employeeSaveDto) {
+        EmployeeEntity savedEmployeeEntity = null;
 
-        if (employeeDto != null) {
-            if(employeeDto.getSalary() != null)
-            {
-                employeeEntity.setSalary(employeeDto.getSalary());
-            }
 
-            if (employeeDto.getFirst_Name() != null)
-            {
-                employeeEntity.setFirst_Name(employeeDto.getFirst_Name());
-            }
-            if (employeeDto.getSalary() != null)
-            {
-                employeeEntity.setSalary(employeeDto.getSalary());
-            }
-            //TODO save in database
-            employeeRepo.save(employeeEntity);
+        if (employeeSaveDto != null) {
+            Optional<EmployeeEntity> employeeEntityOptional = employeeRepo.findById((long) employeeSaveDto.getId());
+            if (employeeEntityOptional.isPresent()) {
+                if(employeeSaveDto.getSalary() != null)
+                {
+                    employeeEntityOptional.get().setSalary(employeeSaveDto.getSalary());
+                }
 
+                if (employeeSaveDto.getFirst_Name() != null)
+                {
+                    employeeEntityOptional.get().setFirst_Name(employeeSaveDto.getFirst_Name());
+                }
+                if (employeeSaveDto.getSecond_Name() != null)
+                {
+                    employeeEntityOptional.get().setSecond_Name(employeeSaveDto.getSecond_Name());
+                }
+                savedEmployeeEntity = employeeRepo.save(employeeEntityOptional.get());
+            }
 
         }
-        employeeDto1 = modelMapper.map(employeeEntity, EmployeeDto.class);
-        return employeeDto1;
+
+        return modelMapper.map(savedEmployeeEntity, EmployeeSaveDto.class);
     }
 
-    public EmployeeDto UpdateEmployee(EmployeeDto employeeDto, Long id) {
-        EmployeeEntity employeeEntity = modelMapper.map(employeeDto, EmployeeEntity.class);
-        employeeEntity.setId(id);
+    public EmployeeSaveDto UpdateEmployee(EmployeeSaveDto employeeSaveDto) {
+        EmployeeEntity employeeEntity = modelMapper.map(employeeSaveDto, EmployeeEntity.class);
         EmployeeEntity employeeEntity1 = employeeRepo.save(employeeEntity);
-        return modelMapper.map(employeeEntity1, EmployeeDto.class);
+        return modelMapper.map(employeeEntity1, EmployeeSaveDto.class);
 
 
     }

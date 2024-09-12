@@ -1,6 +1,7 @@
 package com.EBI.springproject.service;
 
 import com.EBI.springproject.model.EmployeeDto;
+import com.EBI.springproject.model.EmployeeSaveDto;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ public interface EmployeeService {
 
     EmployeeDto saveEmployee(EmployeeDto employeeDto);
 
-    EmployeeDto patchUpdateEmployee(EmployeeDto employeeDto ,Long id);
+    EmployeeSaveDto patchUpdateEmployee(EmployeeSaveDto employeeSaveDtoDto);
 
-    EmployeeDto UpdateEmployee(EmployeeDto employeeDto , Long id);
+    EmployeeSaveDto UpdateEmployee(EmployeeSaveDto employeeSaveDto);
 
     void deleteEmployee(Long id);
 }

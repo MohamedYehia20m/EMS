@@ -1,6 +1,7 @@
 package com.EBI.springproject.controller;
 
 import com.EBI.springproject.model.EmployeeDto;
+import com.EBI.springproject.model.EmployeeSaveDto;
 import com.EBI.springproject.service.EmployeeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,16 +32,16 @@ public class EmployeeController {
         return employeeServiceImpl.saveEmployee(employeeDto);
     }
 
-    @PatchMapping("/{id}")
-    EmployeeDto patchUpdateEmployee(@RequestBody EmployeeDto employeeDto ,@PathVariable Long id)
+    @PatchMapping
+    EmployeeSaveDto patchUpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto)
     {
-        return employeeServiceImpl.patchUpdateEmployee(employeeDto,id);
+        return employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
     }
 
-    @PutMapping("{id}")
-    EmployeeDto UpdateEmployee(@RequestBody EmployeeDto employeeDto ,@PathVariable Long id)
+    @PutMapping
+    EmployeeSaveDto UpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto)
     {
-        return employeeServiceImpl.UpdateEmployee(employeeDto,id);
+        return employeeServiceImpl.UpdateEmployee(employeeSaveDto);
     }
 
     @DeleteMapping("{id}")
