@@ -1,12 +1,8 @@
 package com.EBI.springproject.controller;
 
 import com.EBI.springproject.model.EmployeeDto;
-import com.EBI.springproject.model.Entity.EmployeeEntity;
 import com.EBI.springproject.service.EmployeeServiceImpl;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,8 +44,9 @@ public class EmployeeController {
     }
 
     @DeleteMapping("{id}")
-    Boolean deleteEmployee(@PathVariable Long id)
+    void deleteEmployee(@PathVariable Long id)
     {
-        return employeeServiceImpl.deleteEmployee(id);
+
+        employeeServiceImpl.deleteEmployee(id);
     }
 }

@@ -1,7 +1,7 @@
 package com.EBI.springproject.service;
 
 import com.EBI.springproject.model.EmployeeDto;
-import com.EBI.springproject.model.Entity.EmployeeEntity;
+import com.EBI.springproject.Entity.EmployeeEntity;
 import com.EBI.springproject.repo.EmployeeRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,7 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     final ModelMapper modelMapper;
 
     public List<EmployeeDto> getAllEmployees() {
-        List<EmployeeEntity> employeeEntities = employeeRepo.getAllEmployees();
+        List<EmployeeEntity> employeeEntities = employeeRepo.findAll();
         List<EmployeeDto> employeeDtos = new ArrayList<>();
 
         employeeDtos = employeeEntities.stream().map(employeeEntity -> modelMapper.map(employeeEntity, EmployeeDto.class)).collect(Collectors.toList());
@@ -28,16 +29,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public EmployeeDto getEmployeeById(Long id) {
-        EmployeeEntity employeeEntity = employeeRepo.getEmployeeById(id);
-        return modelMapper.map(employeeEntity, EmployeeDto.class);
+        Optional<EmployeeEntity> employeeEntity = employeeRepo.findById(id);
+        return employeeEntity.map(entity -> modelMapper.map(entity, EmployeeDto.class)).orElse(null);
     }
 
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
-        EmployeeEntity employeeEntity = employeeRepo.saveEmployee(modelMapper.map(employeeDto, EmployeeEntity.class));
+        EmployeeEntity employeeEntity = employeeRepo.save(modelMapper.map(employeeDto, EmployeeEntity.class));
         return modelMapper.map(employeeEntity, EmployeeDto.class);
     }
 
+
     public EmployeeDto patchUpdateEmployee(EmployeeDto employeeDto, Long id) {
+        EmployeeDto employeeDto1 =null;
         EmployeeEntity employeeEntity = modelMapper.map(this.getEmployeeById(id), EmployeeEntity.class);
 
         if (employeeDto != null) {
@@ -46,24 +49,32 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeeEntity.setSalary(employeeDto.getSalary());
             }
 
-            if (employeeDto.getName() != null)
+            if (employeeDto.getFirst_Name() != null)
             {
-                employeeEntity.setName(employeeDto.getName());
+                employeeEntity.setFirst_Name(employeeDto.getFirst_Name());
+            }
+            if (employeeDto.getSalary() != null)
+            {
+                employeeEntity.setSalary(employeeDto.getSalary());
             }
             //TODO save in database
+            employeeDto1 = modelMapper.map(employeeEntity, EmployeeDto.class);
+
         }
-        return employeeDto;
+        return employeeDto1;
     }
 
     public EmployeeDto UpdateEmployee(EmployeeDto employeeDto, Long id) {
         EmployeeEntity employeeEntity = modelMapper.map(employeeDto, EmployeeEntity.class);
-        EmployeeEntity employeeEntity1 = employeeRepo.patchUpdateEmployee(employeeEntity , id);
+        employeeEntity.setId(id);
+        EmployeeEntity employeeEntity1 = employeeRepo.save(employeeEntity);
         return modelMapper.map(employeeEntity1, EmployeeDto.class);
 
 
     }
 
-    public Boolean deleteEmployee(Long id) {
-        return employeeRepo.deleteEmployee(id);
+    public void deleteEmployee(Long id) {
+        EmployeeEntity employeeEntity = employeeRepo.findById(id).orElse(null);
+        employeeRepo.delete(employeeEntity);
     }
 }

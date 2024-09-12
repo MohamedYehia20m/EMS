@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 @ToString
 @Component
 public class EmployeeDto {
-    private String Name;
+    private String first_Name;
     private String Salary;
+    private String second_Name;
 
 
 }
