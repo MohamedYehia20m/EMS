@@ -5,5 +5,5 @@ import com.EBI.springproject.model.TaskSaveDto;
 
 public interface TaskService {
     TaskDto addTask(TaskDto taskDto);
-    TaskSaveDto PatchUpdate(TaskSaveDto taskSaveDto);
+    TaskSaveDto patchUpdate(TaskSaveDto taskSaveDto);
 }

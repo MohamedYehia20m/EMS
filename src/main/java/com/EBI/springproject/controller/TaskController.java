@@ -21,7 +21,7 @@ public class TaskController {
 
     @PatchMapping
     TaskSaveDto patchUpdate(@RequestBody TaskSaveDto taskSaveDto){
-        return taskService.PatchUpdate(taskSaveDto);
+        return taskService.patchUpdate(taskSaveDto);
 
     }
 }

@@ -27,7 +27,7 @@ public class TaskServiceImpl implements TaskService{
         return modelMapper.map(taskEntity, TaskDto.class);
     }
 
-    public TaskSaveDto PatchUpdate(TaskSaveDto taskSaveDto) {
+    public TaskSaveDto patchUpdate(TaskSaveDto taskSaveDto) {
         TaskEntity savedTaskEntity = null;
 
 
