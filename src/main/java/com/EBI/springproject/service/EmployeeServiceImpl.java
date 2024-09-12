@@ -51,7 +51,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 {
                     employeeEntityOptional.get().setSalary(employeeSaveDto.getSalary());
                 }
-
                 if (employeeSaveDto.getFirst_Name() != null)
                 {
                     employeeEntityOptional.get().setFirst_Name(employeeSaveDto.getFirst_Name());
@@ -60,6 +59,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 {
                     employeeEntityOptional.get().setSecond_Name(employeeSaveDto.getSecond_Name());
                 }
+
+
                 savedEmployeeEntity = employeeRepo.save(employeeEntityOptional.get());
             }
 
