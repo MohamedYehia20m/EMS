@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     public EmployeeDto patchUpdateEmployee(EmployeeDto employeeDto, Long id) {
-        EmployeeDto employeeDto1 =null;
+        EmployeeDto employeeDto1;
         EmployeeEntity employeeEntity = modelMapper.map(this.getEmployeeById(id), EmployeeEntity.class);
 
         if (employeeDto != null) {
@@ -58,9 +58,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeeEntity.setSalary(employeeDto.getSalary());
             }
             //TODO save in database
-            employeeDto1 = modelMapper.map(employeeEntity, EmployeeDto.class);
+            employeeRepo.save(employeeEntity);
+
 
         }
+        employeeDto1 = modelMapper.map(employeeEntity, EmployeeDto.class);
         return employeeDto1;
     }
 
