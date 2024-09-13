@@ -1,5 +1,6 @@
 package com.EBI.springproject.controller;
 
+import com.EBI.springproject.Exception.GlobalException;
 import com.EBI.springproject.model.EmployeeDto;
 import com.EBI.springproject.model.EmployeeSaveDto;
 import com.EBI.springproject.model.GeneralResponse;
@@ -52,8 +53,7 @@ public class EmployeeController {
     }
 
     @PatchMapping
-    ResponseEntity<?> patchUpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto)
-    {
+    ResponseEntity<?> patchUpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto) {
         EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
         GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
 

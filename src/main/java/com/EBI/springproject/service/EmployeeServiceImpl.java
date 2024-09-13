@@ -1,5 +1,7 @@
 package com.EBI.springproject.service;
 
+import com.EBI.springproject.Exception.CustomException;
+import com.EBI.springproject.Exception.GlobalException;
 import com.EBI.springproject.model.EmployeeDto;
 import com.EBI.springproject.Entity.EmployeeEntity;
 import com.EBI.springproject.model.EmployeeSaveDto;
@@ -22,6 +24,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public List<EmployeeDto> getAllEmployees() {
         List<EmployeeEntity> employeeEntities = employeeRepo.findAll();
+
+        if (employeeEntities.isEmpty()) {
+            throw new CustomException("400","not found exception","employee table isEmpty!!");
+        }
         List<EmployeeDto> employeeDtos = new ArrayList<>();
 
         employeeDtos = employeeEntities.stream().map(employeeEntity -> modelMapper.map(employeeEntity, EmployeeDto.class)).collect(Collectors.toList());
@@ -31,10 +37,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public EmployeeDto getEmployeeById(Long id) {
         Optional<EmployeeEntity> employeeEntity = employeeRepo.findById(id);
+        if (employeeEntity.isEmpty()) {
+            throw new CustomException("400","not found exception","no employee found");
+        }
         return employeeEntity.map(entity -> modelMapper.map(entity, EmployeeDto.class)).orElse(null);
     }
 
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
+        if (employeeDto.getSecond_Name() == null && employeeDto.getFirst_Name() == null && employeeDto.getSalary() == null ) {
+            throw new CustomException("400","not found exception","no data to save!");
+        }
         EmployeeEntity employeeEntity = employeeRepo.save(modelMapper.map(employeeDto, EmployeeEntity.class));
         return modelMapper.map(employeeEntity, EmployeeDto.class);
     }
@@ -46,6 +58,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (employeeSaveDto != null) {
             Optional<EmployeeEntity> employeeEntityOptional = employeeRepo.findById((long) employeeSaveDto.getId());
+            if (employeeEntityOptional.isEmpty()) {
+                throw new CustomException("400","not found exception","no employee found");
+            }
             if (employeeEntityOptional.isPresent()) {
                 if(employeeSaveDto.getSalary() != null)
                 {
@@ -64,12 +79,17 @@ public class EmployeeServiceImpl implements EmployeeService {
                 savedEmployeeEntity = employeeRepo.save(employeeEntityOptional.get());
             }
 
+
         }
+
 
         return modelMapper.map(savedEmployeeEntity, EmployeeSaveDto.class);
     }
 
     public EmployeeSaveDto UpdateEmployee(EmployeeSaveDto employeeSaveDto) {
+        if (employeeSaveDto.getSecond_Name() == null && employeeSaveDto.getFirst_Name() == null && employeeSaveDto.getSalary() == null) {
+            throw new CustomException("400","not found exception","no data to save!");
+        }
         EmployeeEntity employeeEntity = modelMapper.map(employeeSaveDto, EmployeeEntity.class);
         EmployeeEntity employeeEntity1 = employeeRepo.save(employeeEntity);
         return modelMapper.map(employeeEntity1, EmployeeSaveDto.class);

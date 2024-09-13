@@ -1,5 +1,6 @@
 package com.EBI.springproject.service;
 
+import com.EBI.springproject.Exception.GlobalException;
 import com.EBI.springproject.model.EmployeeDto;
 import com.EBI.springproject.model.EmployeeSaveDto;
 
@@ -13,7 +14,7 @@ public interface EmployeeService {
 
     EmployeeDto saveEmployee(EmployeeDto employeeDto);
 
-    EmployeeSaveDto patchUpdateEmployee(EmployeeSaveDto employeeSaveDtoDto);
+    EmployeeSaveDto patchUpdateEmployee(EmployeeSaveDto employeeSaveDtoDto) ;
 
     EmployeeSaveDto UpdateEmployee(EmployeeSaveDto employeeSaveDto);
 
