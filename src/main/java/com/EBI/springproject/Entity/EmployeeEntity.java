@@ -7,6 +7,8 @@ import org.modelmapper.internal.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 
 @Setter
 @Getter
@@ -23,4 +25,8 @@ public class EmployeeEntity {
     private String first_Name;
     private String Salary;
     private String second_Name;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
+    List<TaskEntity> taskEntitied;
 }

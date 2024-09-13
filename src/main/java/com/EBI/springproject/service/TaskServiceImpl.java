@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -62,5 +64,9 @@ public class TaskServiceImpl implements TaskService{
         }
 
         return modelMapper.map(savedTaskEntity, TaskSaveDto.class);
+    }
+
+    public List<TaskDto> getAllTasksByEmployee(Long employeeId){
+        return taskRepo.findByEmployeeEntity_Id(employeeId).stream().map(taskEntity -> modelMapper.map(taskEntity, TaskDto.class)).collect(Collectors.toList());
     }
 }

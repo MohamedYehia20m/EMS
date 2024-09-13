@@ -2,8 +2,12 @@ package com.EBI.springproject.controller;
 
 import com.EBI.springproject.model.EmployeeDto;
 import com.EBI.springproject.model.EmployeeSaveDto;
+import com.EBI.springproject.model.GeneralResponse;
 import com.EBI.springproject.service.EmployeeServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,39 +19,62 @@ public class EmployeeController {
 
     final EmployeeServiceImpl employeeServiceImpl;
 
+    @Value("${success.code}")
+    String successCode;
+
+    @Value("${success.message}")
+    String successMessage;
+
     @GetMapping
-    List<EmployeeDto> getAllEmployees() {
-        return employeeServiceImpl.getAllEmployees();
+    ResponseEntity<?> getAllEmployees() {
+        List<EmployeeDto> employeeDtos = employeeServiceImpl.getAllEmployees();
+        GeneralResponse<List<EmployeeDto>> response = new GeneralResponse<>(successCode,successMessage,employeeDtos);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    EmployeeDto getEmployeeById(@PathVariable Long id)
+    ResponseEntity<?> getEmployeeById(@PathVariable Long id)
     {
-        return employeeServiceImpl.getEmployeeById(id);
+        EmployeeDto employeeDto = employeeServiceImpl.getEmployeeById(id);
+        GeneralResponse<EmployeeDto> response = new GeneralResponse<>(successCode,successMessage,employeeDto);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping
-    EmployeeDto saveEmployee(@RequestBody EmployeeDto employeeDto)
+    ResponseEntity<?> saveEmployee(@RequestBody EmployeeDto employeeDto)
     {
-        return employeeServiceImpl.saveEmployee(employeeDto);
+        EmployeeDto employeeDto1 = employeeServiceImpl.saveEmployee(employeeDto);
+        GeneralResponse<EmployeeDto> response = new GeneralResponse<>(successCode,successMessage,employeeDto1);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PatchMapping
-    EmployeeSaveDto patchUpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto)
+    ResponseEntity<?> patchUpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto)
     {
-        return employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
+        EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
+        GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping
-    EmployeeSaveDto UpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto)
+    ResponseEntity<?> UpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto)
     {
-        return employeeServiceImpl.UpdateEmployee(employeeSaveDto);
+        EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.UpdateEmployee(employeeSaveDto);
+        GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    void deleteEmployee(@PathVariable Long id)
+    ResponseEntity<?> deleteEmployee(@PathVariable Long id)
     {
-
         employeeServiceImpl.deleteEmployee(id);
+        GeneralResponse<String> response= new GeneralResponse<>(successCode,successMessage,"delete is Successful");
+
+        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 }
