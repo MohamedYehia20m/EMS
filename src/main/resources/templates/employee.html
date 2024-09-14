@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Employees</title>
+
+</head>
+<body>
+<a th:href="@{/employee/register}"> add employee <</a>
+    <table>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Salary</th>
+            <th>Second Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${response.getData()}">
+            <td th:text="${employee.first_Name}"></td>
+            <td th:text="${employee.salary}"></td>
+            <td th:text="${employee.second_Name}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

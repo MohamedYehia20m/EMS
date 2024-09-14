@@ -44,9 +44,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
+        /*
         if (employeeDto.getSecond_Name() == null && employeeDto.getFirst_Name() == null && employeeDto.getSalary() == null ) {
             throw new CustomException("400","not found exception","no data to save!");
         }
+
+         */
         EmployeeEntity employeeEntity = employeeRepo.save(modelMapper.map(employeeDto, EmployeeEntity.class));
         return modelMapper.map(employeeEntity, EmployeeDto.class);
     }

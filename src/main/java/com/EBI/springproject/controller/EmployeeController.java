@@ -1,6 +1,5 @@
 package com.EBI.springproject.controller;
 
-import com.EBI.springproject.Exception.GlobalException;
 import com.EBI.springproject.model.EmployeeDto;
 import com.EBI.springproject.model.EmployeeSaveDto;
 import com.EBI.springproject.model.GeneralResponse;
@@ -9,11 +8,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -26,6 +27,7 @@ public class EmployeeController {
     @Value("${success.message}")
     String successMessage;
 
+    @ResponseBody
     @GetMapping
     ResponseEntity<?> getAllEmployees() {
         List<EmployeeDto> employeeDtos = employeeServiceImpl.getAllEmployees();
@@ -34,6 +36,47 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
+
+    @GetMapping("/home")
+    String getHomePage(Model model) {
+
+        return "index";
+    }
+
+
+    @GetMapping("/view")
+    String getAllEmployeesView(Model model) {
+        List<EmployeeDto> employeeDtos = employeeServiceImpl.getAllEmployees();
+        GeneralResponse<List<EmployeeDto>> response = new GeneralResponse<>(successCode,successMessage,employeeDtos);
+        model.addAttribute("response",response);
+
+        return "showAll";
+    }
+
+    @GetMapping("/register")
+    String saveEmployeeView( Model model) {
+        model.addAttribute("employeeDto", new EmployeeDto());
+
+        return "save";
+    }
+
+    @PostMapping("/register")
+    String registerEmployee( EmployeeDto employeeDto , Model model) {
+        EmployeeDto employeeDto1 = employeeServiceImpl.saveEmployee(employeeDto);
+        model.addAttribute("employeeDto",new EmployeeDto());
+
+        return "redirect:view";
+    }
+
+
+
+
+
+
+
+
+    @ResponseBody
     @GetMapping("{id}")
     ResponseEntity<?> getEmployeeById(@PathVariable Long id)
     {
@@ -43,6 +86,8 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
+    @ResponseBody
     @PostMapping
     ResponseEntity<?> saveEmployee(@RequestBody EmployeeDto employeeDto)
     {
@@ -52,6 +97,7 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @ResponseBody
     @PatchMapping
     ResponseEntity<?> patchUpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto) {
         EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
@@ -60,6 +106,7 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @ResponseBody
     @PutMapping
     ResponseEntity<?> UpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto)
     {
@@ -69,6 +116,7 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @ResponseBody
     @DeleteMapping("{id}")
     ResponseEntity<?> deleteEmployee(@PathVariable Long id)
     {
