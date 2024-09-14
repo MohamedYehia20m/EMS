@@ -54,6 +54,16 @@ public class EmployeeController {
         return "showAll";
     }
 
+    @GetMapping("/view/{id}")
+    String getEmployeeByIdView(Model model , @PathVariable Long id)
+    {
+        EmployeeDto employeeDto = employeeServiceImpl.getEmployeeById(id);
+        GeneralResponse<EmployeeDto> response = new GeneralResponse<>(successCode,successMessage,employeeDto);
+        model.addAttribute("response",response);
+
+        return "showAllById";
+    }
+
     @GetMapping("/register")
     String saveEmployeeView( Model model) {
         model.addAttribute("employeeDto", new EmployeeDto());

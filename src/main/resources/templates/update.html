@@ -46,7 +46,7 @@
           <nav>
             <ul class="nav topnav">
               <li class="dropdown active">
-                <a href="index.html">Home</a>
+                <a th:href="@{/employee/home}">Home</a>
               </li>
               <li class="dropdown">
                 <a href="#">Services</a>
@@ -55,7 +55,7 @@
                   <li><a href="showAllById.html">Search</a></li>
                   <li><a href="patch.html">Update Data </a></li>
                   <li><a href="update.html">Update Employee</a></li>
-                  <li><a href="save.html">Add</a></li>
+                  <li><a th:href="@{/employee/register}">Add</a></li>
                   <li><a href="delete.html">Delete</a></li>
                 </ul>
               </li>
