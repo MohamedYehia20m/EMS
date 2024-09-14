@@ -14,7 +14,7 @@ public interface EmployeeService {
 
     EmployeeDto saveEmployee(EmployeeDto employeeDto);
 
-    EmployeeSaveDto patchUpdateEmployee(EmployeeSaveDto employeeSaveDtoDto) ;
+    EmployeeSaveDto patchEmployee(EmployeeSaveDto employeeSaveDto);
 
     EmployeeSaveDto UpdateEmployee(EmployeeSaveDto employeeSaveDto);
 

@@ -55,15 +55,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    public EmployeeSaveDto patchUpdateEmployee(EmployeeSaveDto employeeSaveDto) {
+    public EmployeeSaveDto patchEmployee(EmployeeSaveDto employeeSaveDto) {
         EmployeeEntity savedEmployeeEntity = null;
 
 
         if (employeeSaveDto != null) {
-            Optional<EmployeeEntity> employeeEntityOptional = employeeRepo.findById((long) employeeSaveDto.getId());
+            Optional<EmployeeEntity> employeeEntityOptional = employeeRepo.findById( employeeSaveDto.getId());
+
             if (employeeEntityOptional.isEmpty()) {
                 throw new CustomException("400","not found exception","no employee found");
             }
+
+
             if (employeeEntityOptional.isPresent()) {
                 if(employeeSaveDto.getSalary() != null)
                 {

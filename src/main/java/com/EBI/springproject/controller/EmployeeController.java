@@ -97,13 +97,13 @@ public class EmployeeController {
     }
 
 //what if i use @PostMapping with Patch logic?
-    @PatchMapping("/patch")
+    @PostMapping("/patch")
     String patchEmployee(EmployeeSaveDto employeeSaveDto , Model model) {
-        EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
+        EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchEmployee(employeeSaveDto);
         GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
         model.addAttribute("response", response);
 
-        return "showAll";
+        return  getAllEmployeesView(model);
     }
 
     @GetMapping("/update")
@@ -114,13 +114,13 @@ public class EmployeeController {
     }
 
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     String updateEmployee(EmployeeSaveDto employeeSaveDto , Model model) {
         EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.UpdateEmployee(employeeSaveDto);
         GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
         model.addAttribute("response", response);
 
-        return "showAll";
+        return getAllEmployeesView(model);
     }
 
     @GetMapping("/delete")
@@ -130,13 +130,13 @@ public class EmployeeController {
         return "delete";
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     String deleteEmployee( EmployeeSaveDto employeeSaveDto , Model model)
     {
         employeeServiceImpl.deleteEmployee((long) employeeSaveDto.getId());
         //GeneralResponse<String> response= new GeneralResponse<>(successCode,successMessage,"delete is Successful");
 
-        return "showAll";
+        return getAllEmployeesView(model);
     }
 
 
@@ -169,7 +169,7 @@ public class EmployeeController {
     @ResponseBody
     @PatchMapping
     ResponseEntity<?> patchEmployee(@RequestBody EmployeeSaveDto employeeSaveDto) {
-        EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
+        EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchEmployee(employeeSaveDto);
         GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

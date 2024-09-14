@@ -97,7 +97,7 @@
         <a th:href="@{/employee/register}"> add employee <</a>
         <form action="#"
               th:action="@{/employee/update}"
-              th:object="${employeeSaveDto}" method="get">
+              th:object="${employeeSaveDto}" method="post">
           <div class="row">
             <div class="form-group col-md-6">
               <label for="id" class="col-form-label">id</label> <input

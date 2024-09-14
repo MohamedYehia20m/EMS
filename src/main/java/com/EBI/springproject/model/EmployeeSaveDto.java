@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @ToString
 @Component
 public class EmployeeSaveDto {
-    private int Id;
+    private Long Id;
     private String first_Name;
     private String Salary;
     private String second_Name;
