@@ -3,6 +3,7 @@ package com.EBI.springproject.controller;
 import com.EBI.springproject.model.EmployeeDto;
 import com.EBI.springproject.model.EmployeeSaveDto;
 import com.EBI.springproject.model.GeneralResponse;
+import com.EBI.springproject.repo.EmployeeRepo;
 import com.EBI.springproject.service.EmployeeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,8 @@ import java.util.List;
 public class EmployeeController {
 
     final EmployeeServiceImpl employeeServiceImpl;
+
+    final EmployeeRepo employeeRepo;
 
     @Value("${success.code}")
     String successCode;
@@ -54,14 +57,20 @@ public class EmployeeController {
         return "showAll";
     }
 
-    @GetMapping("/view/{id}")
-    String getEmployeeByIdView(Model model , @PathVariable Long id)
-    {
-        EmployeeDto employeeDto = employeeServiceImpl.getEmployeeById(id);
+    @GetMapping("/search")
+    String searchEmployeeByIdView(Model model) {
+        model.addAttribute("employeeSaveDto",new EmployeeSaveDto());
+
+        return "searchById";
+    }
+
+    @PostMapping("/search")
+    String getAllEmployeesByIdView(EmployeeSaveDto employeeSaveDto , Model model) {
+        EmployeeDto employeeDto = employeeServiceImpl.getEmployeeById((long) employeeSaveDto.getId());
         GeneralResponse<EmployeeDto> response = new GeneralResponse<>(successCode,successMessage,employeeDto);
         model.addAttribute("response",response);
 
-        return "showAllById";
+        return "showAll";
     }
 
     @GetMapping("/register")
@@ -79,6 +88,56 @@ public class EmployeeController {
         return "redirect:view";
     }
 
+
+    @GetMapping("/patch")
+    String patchEmployeeView( Model model) {
+        model.addAttribute("employeeSaveDto",new EmployeeSaveDto());
+
+        return "patch";
+    }
+
+//what if i use @PostMapping with Patch logic?
+    @PatchMapping("/patch")
+    String patchEmployee(EmployeeSaveDto employeeSaveDto , Model model) {
+        EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
+        GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
+        model.addAttribute("response", response);
+
+        return "showAll";
+    }
+
+    @GetMapping("/update")
+    String updateEmployeeView(Model model) {
+        model.addAttribute("employeeSaveDto",new EmployeeSaveDto());
+
+        return "update";
+    }
+
+
+    @PutMapping("/update")
+    String updateEmployee(EmployeeSaveDto employeeSaveDto , Model model) {
+        EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.UpdateEmployee(employeeSaveDto);
+        GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
+        model.addAttribute("response", response);
+
+        return "showAll";
+    }
+
+    @GetMapping("/delete")
+    String deleteEmployee(Model model)
+    {
+        model.addAttribute("employeeSaveDto",new EmployeeSaveDto());
+        return "delete";
+    }
+
+    @DeleteMapping("/delete")
+    String deleteEmployee( EmployeeSaveDto employeeSaveDto , Model model)
+    {
+        employeeServiceImpl.deleteEmployee((long) employeeSaveDto.getId());
+        //GeneralResponse<String> response= new GeneralResponse<>(successCode,successMessage,"delete is Successful");
+
+        return "showAll";
+    }
 
 
 
@@ -109,7 +168,7 @@ public class EmployeeController {
 
     @ResponseBody
     @PatchMapping
-    ResponseEntity<?> patchUpdateEmployee(@RequestBody EmployeeSaveDto employeeSaveDto) {
+    ResponseEntity<?> patchEmployee(@RequestBody EmployeeSaveDto employeeSaveDto) {
         EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchUpdateEmployee(employeeSaveDto);
         GeneralResponse<EmployeeSaveDto> response= new GeneralResponse<>(successCode,successMessage,employeeSaveDto1);
 

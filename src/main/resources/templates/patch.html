@@ -39,7 +39,7 @@
     <div class="navbar-inner">
       <div class="container">
         <!-- logo -->
-        <a class="brand logo" href="index.html"><img src="/assets/img/EmployeeLogo.png" alt=""></a>
+        <a class="brand logo" href="/index"><img src="/assets/img/EmployeeLogo.png" alt=""></a>
         <!-- end logo -->
         <!-- top menu -->
         <div class="navigation">
@@ -52,11 +52,11 @@
                 <a href="#">Services</a>
                 <ul class="dropdown-menu">
                   <li><a th:href="@{/employee/view}">Show All</a></li>
-                  <li><a href="showAllById.html">Search</a></li>
-                  <li><a href="patch.html">Update Data </a></li>
-                  <li><a href="update.html">Update Employee</a></li>
+                  <li><a th:href="@{/employee/search}">Search</a></li>
+                  <li><a th:href="@{/employee/patch}">Update Data </a></li>
+                  <li><a th:href="@{/employee/update}">Update Employee</a></li>
                   <li><a th:href="@{/employee/register}">Add</a></li>
-                  <li><a href="delete.html">Delete</a></li>
+                  <li><a th:href="@{/employee/delete}">Delete</a></li>
                 </ul>
               </li>
               <li  class="contactForm">
@@ -78,7 +78,7 @@
       <div class="row">
         <div class="span12">
           <div class="centered">
-            <h3>Show All</h3>
+            <h3>Save</h3>
 
           </div>
         </div>
@@ -95,6 +95,33 @@
           <li class="active">Show All</li>
         </ul>
         <a th:href="@{/employee/register}"> add employee <</a>
+        <form action="#"
+              th:action="@{/employee/patch}"
+              th:object="${employeeSaveDto}" method="get">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="id" class="col-form-label">id</label> <input
+                    type="text" th:field="*{id}" class="form-control" id="id">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="first_name" class="col-form-label">first_name</label> <input
+                    type="text" th:field="*{first_Name}" class="form-control" id="first_name">
+            </div>
+            <div class="form-group col-md-8">
+              <label for="salary" class="col-form-label">salary</label> <input
+                    type="text" th:field="*{salary}" class="form-control" id="salary">
+            </div>
+            <div class="form-group col-md-8">
+              <label for="second_name" class="col-form-label">second_name</label> <input
+                    type="text" th:field="*{second_Name}" class="form-control" id="second_name">
+            </div>
+
+            <div class="form-group col-md-8">
+              <input type="submit" class="btn btn-primary"
+                     value="Patch Employee Data">
+            </div>
+          </div>
+        </form>
 
       </div>
     </div>
@@ -108,30 +135,29 @@
         <div class="row">
           <div class="span3">
             <div class="priceBox">
-              <table>
-                <thead>
-                <tr>
-                  <th>First Name</th>
-                  <th>Salary</th>
-                  <th>Second Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="employee : ${response.getData()}">
-                  <td th:text="${employee.first_Name}"></td>
-                  <td th:text="${employee.salary}"></td>
-                  <td th:text="${employee.second_Name}"></td>
+              <!--              <table>-->
+              <!--                <thead>-->
+              <!--                <tr>-->
+              <!--                  <th>First Name</th>-->
+              <!--                  <th>Salary</th>-->
+              <!--                  <th>Second Name</th>-->
+              <!--                </tr>-->
+              <!--                </thead>-->
+              <!--                <tbody>-->
+              <!--                <tr th:each="employee : ${response.getData()}">-->
+              <!--                  <td th:text="${employee.first_Name}"></td>-->
+              <!--                  <td th:text="${employee.salary}"></td>-->
+              <!--                  <td th:text="${employee.second_Name}"></td>-->
 
-                </tr>
-                </tbody>
-              </table>
+              <!--                </tr>-->
+              <!--                </tbody>-->
+              <!--              </table>-->
 
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </section>
 
