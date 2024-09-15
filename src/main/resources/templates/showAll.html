@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Serenity - Modern bootstrap website template</title>
+  <title>EMS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -101,13 +101,29 @@
     </div>
   </section>
   <section id="maincontent">
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse; /* Ensures that borders between cells are collapsed into a single border */
+      }
+      th, td {
+        padding: 10px; /* Adds padding inside each cell */
+        border: 1px solid #ddd; /* Adds a light border around each cell */
+      }
+      thead th {
+        background-color: #4CAF50; /* Green background for table header */
+        color: white; /* White text color for header */
+        text-align: left; /* Aligns header text to the left */
+      }
+      tbody tr:nth-child(odd) {
+        background-color: #f2f2f2; /* Light gray background for odd rows */
+      }
+      tbody tr:hover {
+        background-color: #ddd; /* Highlight background on hover for rows */
+      }
+    </style>
     <div class="container">
-      <div class="row">
-        <div class="span12">
           <h3>Employees </h3>
-          <div class="row">
-            <div class="span3">
-              <div class="priceBox">
                 <table>
                   <thead>
                   <tr>
@@ -127,12 +143,7 @@
                 </table>
 
               </div>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </section>
 
   <!-- JavaScript Library Files -->

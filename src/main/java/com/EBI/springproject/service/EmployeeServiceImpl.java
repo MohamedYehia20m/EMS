@@ -44,12 +44,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
-        /*
-        if (employeeDto.getSecond_Name() == null && employeeDto.getFirst_Name() == null && employeeDto.getSalary() == null ) {
-            throw new CustomException("400","not found exception","no data to save!");
+
+        if (employeeDto.getSecond_Name().isEmpty() || employeeDto.getFirst_Name().isEmpty() || employeeDto.getSalary().isEmpty() ) {
+            throw new CustomException("400","not found exception","missing data to register!");
         }
 
-         */
+
         EmployeeEntity employeeEntity = employeeRepo.save(modelMapper.map(employeeDto, EmployeeEntity.class));
         return modelMapper.map(employeeEntity, EmployeeDto.class);
     }
@@ -59,24 +59,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity savedEmployeeEntity = null;
 
 
-        if (employeeSaveDto != null) {
+        if (employeeSaveDto.getId() != null) {
             Optional<EmployeeEntity> employeeEntityOptional = employeeRepo.findById( employeeSaveDto.getId());
 
-            if (employeeEntityOptional.isEmpty()) {
-                throw new CustomException("400","not found exception","no employee found");
-            }
-
-
-            if (employeeEntityOptional.isPresent()) {
-                if(employeeSaveDto.getSalary() != null)
+           if (employeeEntityOptional.isPresent()) {
+                if(employeeSaveDto.getSalary() != null && !employeeSaveDto.getSalary().isEmpty())
                 {
                     employeeEntityOptional.get().setSalary(employeeSaveDto.getSalary());
                 }
-                if (employeeSaveDto.getFirst_Name() != null)
+                if (employeeSaveDto.getFirst_Name() != null && !employeeSaveDto.getFirst_Name().isEmpty())
                 {
                     employeeEntityOptional.get().setFirst_Name(employeeSaveDto.getFirst_Name());
                 }
-                if (employeeSaveDto.getSecond_Name() != null)
+                if (employeeSaveDto.getSecond_Name() != null && !employeeSaveDto.getSecond_Name().isEmpty())
                 {
                     employeeEntityOptional.get().setSecond_Name(employeeSaveDto.getSecond_Name());
                 }
@@ -84,18 +79,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
                 savedEmployeeEntity = employeeRepo.save(employeeEntityOptional.get());
             }
+           else  throw new CustomException("400","not found exception","employee is not present!");
 
 
         }
+        else  throw new CustomException("400","not found exception","ID cannot be null");
 
 
         return modelMapper.map(savedEmployeeEntity, EmployeeSaveDto.class);
     }
 
     public EmployeeSaveDto UpdateEmployee(EmployeeSaveDto employeeSaveDto) {
-        if (employeeSaveDto.getSecond_Name() == null && employeeSaveDto.getFirst_Name() == null && employeeSaveDto.getSalary() == null) {
-            throw new CustomException("400","not found exception","no data to save!");
+        if (employeeSaveDto.getId() == null) {
+            throw new CustomException("400","not found exception","id cannot be null");
         }
+
         EmployeeEntity employeeEntity = modelMapper.map(employeeSaveDto, EmployeeEntity.class);
         EmployeeEntity employeeEntity1 = employeeRepo.save(employeeEntity);
         return modelMapper.map(employeeEntity1, EmployeeSaveDto.class);
@@ -104,7 +102,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public void deleteEmployee(Long id) {
+
         EmployeeEntity employeeEntity = employeeRepo.findById(id).orElse(null);
+        if(employeeEntity == null)
+            throw new CustomException("400","not found exception","no employee to delete");
         employeeRepo.delete(employeeEntity);
     }
 }
