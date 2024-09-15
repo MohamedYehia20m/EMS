@@ -22,8 +22,6 @@ public class EmployeeController {
 
     final EmployeeServiceImpl employeeServiceImpl;
 
-    final EmployeeRepo employeeRepo;
-
     @Value("${success.code}")
     String successCode;
 
