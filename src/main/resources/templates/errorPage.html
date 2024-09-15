@@ -78,7 +78,7 @@
       <div class="row">
         <div class="span12">
           <div class="centered">
-            <h3>Save</h3>
+            <h3>Error</h3>
 
           </div>
         </div>
@@ -92,9 +92,30 @@
       <div class="span12">
         <ul class="breadcrumb notop">
           <li><a href="#">Home</a><span class="divider">/</span></li>
-          <li class="active">Show All</li>
+          <li class="active">Error</li>
         </ul>
         <a th:href="@{/employee/register}"> add employee <</a>
+        <style>
+          table {
+            width: 100%;
+            border-collapse: collapse; /* Ensures that borders between cells are collapsed into a single border */
+          }
+          th, td {
+            padding: 10px; /* Adds padding inside each cell */
+            border: 1px solid #ddd; /* Adds a light border around each cell */
+          }
+          thead th {
+            background-color: #4CAF50; /* Green background for table header */
+            color: white; /* White text color for header */
+            text-align: left; /* Aligns header text to the left */
+          }
+          tbody tr:nth-child(odd) {
+            background-color: #f2f2f2; /* Light gray background for odd rows */
+          }
+          tbody tr:hover {
+            background-color: #ddd; /* Highlight background on hover for rows */
+          }
+        </style>
         <table>
           <thead>
           <tr>
@@ -113,39 +134,6 @@
           </tbody>
         </table>
 
-      </div>
-    </div>
-  </div>
-</section>
-<section id="maincontent">
-  <div class="container">
-    <div class="row">
-      <div class="span12">
-        <h3>Employees </h3>
-        <div class="row">
-          <div class="span3">
-            <div class="priceBox">
-              <!--              <table>-->
-              <!--                <thead>-->
-              <!--                <tr>-->
-              <!--                  <th>First Name</th>-->
-              <!--                  <th>Salary</th>-->
-              <!--                  <th>Second Name</th>-->
-              <!--                </tr>-->
-              <!--                </thead>-->
-              <!--                <tbody>-->
-              <!--                <tr th:each="employee : ${response.getData()}">-->
-              <!--                  <td th:text="${employee.first_Name}"></td>-->
-              <!--                  <td th:text="${employee.salary}"></td>-->
-              <!--                  <td th:text="${employee.second_Name}"></td>-->
-
-              <!--                </tr>-->
-              <!--                </tbody>-->
-              <!--              </table>-->
-
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

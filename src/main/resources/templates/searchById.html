@@ -39,7 +39,7 @@
     <div class="navbar-inner">
       <div class="container">
         <!-- logo -->
-        <a class="brand logo" href="index.html"><img src="/assets/img/EmployeeLogo.png" alt=""></a>
+        <a class="brand logo" href="/index"><img src="/assets/img/EmployeeLogo.png" width="132" height="29" alt=""></a>
         <!-- end logo -->
         <!-- top menu -->
         <div class="navigation">
@@ -60,7 +60,7 @@
                 </ul>
               </li>
               <li  class="contactForm">
-                <a href="contact.html">Contact</a>
+                <a th:href="@{/employee/contact}">Contact</a>
               </li>
             </ul>
           </nav>
@@ -70,6 +70,7 @@
     </div>
   </div>
 </header>
+
 <!-- Subhead
 ================================================== -->
 <section id="subintro">
@@ -78,7 +79,7 @@
       <div class="row">
         <div class="span12">
           <div class="centered">
-            <h3>Show All</h3>
+            <h3>Search By ID</h3>
 
           </div>
         </div>
@@ -92,7 +93,7 @@
       <div class="span12">
         <ul class="breadcrumb notop">
           <li><a href="#">Home</a><span class="divider">/</span></li>
-          <li class="active">Show All</li>
+          <li class="active">Search</li>
         </ul>
         <a th:href="@{/employee/register}"> add employee <</a>
 
