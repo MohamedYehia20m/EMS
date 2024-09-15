@@ -3,7 +3,6 @@ package com.EBI.springproject.controller;
 import com.EBI.springproject.model.EmployeeDto;
 import com.EBI.springproject.model.EmployeeSaveDto;
 import com.EBI.springproject.model.GeneralResponse;
-import com.EBI.springproject.repo.EmployeeRepo;
 import com.EBI.springproject.service.EmployeeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,7 +69,7 @@ public class EmployeeController {
 
     @PostMapping("/search")
     String getAllEmployeesByIdView(EmployeeSaveDto employeeSaveDto , Model model) {
-        EmployeeDto employeeDto = employeeServiceImpl.getEmployeeById((long) employeeSaveDto.getId());
+        EmployeeDto employeeDto = employeeServiceImpl.getEmployeeById( employeeSaveDto.getId());
         GeneralResponse<EmployeeDto> response = new GeneralResponse<>(successCode,successMessage,employeeDto);
         model.addAttribute("response",response);
 
@@ -86,7 +85,7 @@ public class EmployeeController {
 
     @PostMapping("/register")
     String registerEmployee( EmployeeDto employeeDto , Model model) {
-        EmployeeDto employeeDto1 = employeeServiceImpl.saveEmployee(employeeDto);
+        employeeServiceImpl.saveEmployee(employeeDto);
         model.addAttribute("employeeDto",new EmployeeDto());
 
         return "redirect:view";
@@ -100,7 +99,6 @@ public class EmployeeController {
         return "patch";
     }
 
-//what if i use @PostMapping with Patch logic?
     @PostMapping("/patch")
     String patchEmployee(EmployeeSaveDto employeeSaveDto , Model model) {
         EmployeeSaveDto employeeSaveDto1 = employeeServiceImpl.patchEmployee(employeeSaveDto);
@@ -137,7 +135,7 @@ public class EmployeeController {
     @PostMapping("/delete")
     String deleteEmployee( EmployeeSaveDto employeeSaveDto , Model model)
     {
-        employeeServiceImpl.deleteEmployee((long) employeeSaveDto.getId());
+        employeeServiceImpl.deleteEmployee( employeeSaveDto.getId());
         //GeneralResponse<String> response= new GeneralResponse<>(successCode,successMessage,"delete is Successful");
 
         return getAllEmployeesView(model);
