@@ -40,28 +40,28 @@
     <div class="navbar-inner">
       <div class="container">
         <!-- logo -->
-        <a class="brand logo" href="index.html"><img src="/assets/img/EmployeeLogo.png" alt=""></a>
+        <a class="brand logo" href="index.html"><img src="/assets/img/EmployeeLogo.png" width="132" height="29" alt=""></a>
         <!-- end logo -->
         <!-- top menu -->
         <div class="navigation">
           <nav>
             <ul class="nav topnav">
               <li class="dropdown active">
-                <a href="index.html">Home</a>
+                <a th:href="@{/employee/home}">Home</a>
               </li>
               <li class="dropdown">
                 <a href="#">Services</a>
                 <ul class="dropdown-menu">
                   <li><a th:href="@{/employee/view}">Show All</a></li>
-                  <li><a href="searchById.html">Search</a></li>
-                  <li><a href="patch.html">Update Data </a></li>
-                  <li><a href="update.html">Update Employee</a></li>
-                  <li><a href="save.html">Add</a></li>
-                  <li><a href="delete.html">Delete</a></li>
+                  <li><a th:href="@{/employee/search}">Search</a></li>
+                  <li><a th:href="@{/employee/patch}">Update Data </a></li>
+                  <li><a th:href="@{/employee/update}">Update Employee</a></li>
+                  <li><a th:href="@{/employee/register}">Add</a></li>
+                  <li><a th:href="@{/employee/delete}">Delete</a></li>
                 </ul>
               </li>
               <li  class="contactForm">
-                <a href="contact.html">Contact</a>
+                <a th:href="@{/employee/contact}">Contact</a>
               </li>
             </ul>
           </nav>
@@ -73,23 +73,7 @@
 </header>
   <!-- Subhead
 ================================================== -->
-  <section id="subintro">
-    <div class="jumbotron subhead" id="overview">
-      <div class="container">
-        <div class="row">
-          <div class="span12">
-            <div class="centered">
-              <h3>Contact page</h3>
-              <p>
-                Lorem ipsum dolor sit amet, modus salutatus honestatis ex mea. Sit cu probo putant. Nam ne impedit
-                atomorum.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+
   <section id="breadcrumb">
     <div class="container">
       <div class="row">
@@ -112,17 +96,22 @@
               <ul>
                 <li><label><strong>Phone : </strong></label>
                   <p>
-                    +900 888 707 123
+                    02 24054472
+                  </p>
+                </li>
+                <li><label><strong>Hotline : </strong></label>
+                  <p>
+                    15200
                   </p>
                 </li>
                 <li><label><strong>Email : </strong></label>
                   <p>
-                    name@yoursite.com
+                    MohamedYehia@EBI.com
                   </p>
                 </li>
-                <li><label><strong>Adress : </strong></label>
+                <li><label><strong>Address : </strong></label>
                   <p>
-                    Pasar kambing 58 Suite X.110 Peterongan Semarang, Indonesia
+                    22 A, Dr. Anwar Al Mofti St Tiba 2000 Administrative Building, Al Manteqah Al Oula, Nasr City, Cairo Governorate 11759
                   </p>
                 </li>
               </ul>
@@ -140,7 +129,15 @@
           </aside>
         </div>
         <div class="span8">
-          <iframe src="https://www.https://www.google.com/maps/place/Egyptian+Banking+Institute+(EBI)/@30.0668689,31.3273511,976m/data=!3m2!1e3!4b1!4m6!3m5!1s0x14583e41e7ef49b5:0xf7397938366ae2b0!8m2!3d30.0668643!4d31.329926!16s%2Fg%2F1tglc_sv?hl=nl&entry=ttu&g_ep=EgoyMDI0MDkxMS4wIKXMDSoASAFQAw%3D%3D" width="100%" height="380" style="border:0" allowfullscreen></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4248.751507643776!2d31.329925999999997!3d30.0668643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e41e7ef49b5%3A0xf7397938366ae2b0!2sEgyptian%20Banking%20Institute%20(EBI)!5e1!3m2!1sen!2seg!4v1726382701413!5m2!1sen!2seg"
+                  width="600"
+                  height="450"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade">
+
+          </iframe>"
 
           <div class="spacer30"></div>
 

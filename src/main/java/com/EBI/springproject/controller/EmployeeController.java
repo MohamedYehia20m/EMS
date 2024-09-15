@@ -47,6 +47,12 @@ public class EmployeeController {
         return "index";
     }
 
+    @GetMapping("/contact")
+    String getContactPage(Model model) {
+
+        return "contact";
+    }
+
 
     @GetMapping("/view")
     String getAllEmployeesView(Model model) {
