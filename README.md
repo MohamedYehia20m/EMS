@@ -12,3 +12,4 @@ Reading a full table of Employees or searching for a specific one using a unique
 Update all the data for the employee or patch in certain fields.
 ### Delete
 Delete Employee with one particular `ID`
+
