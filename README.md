@@ -13,3 +13,5 @@ Update all the data for the employee or patch in certain fields.
 ### Delete
 Delete Employee with one particular `ID`
 
+## Architecture
+![Helicopter View Architecture](./Architecture.jpeg)
